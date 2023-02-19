@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { calcDiff } from '../Utility/CalcColorDiff';
+import { generateMatrix } from './GameBoard/GameBoardScript';
 const Details = lazy(() => import('./Details/Details').then((module) => ({ default: module.default })));
 const AlertDialog = lazy(() => import('./AlertDialog/AlertDialog').then((module) => ({ default: module.default })));
 const GameBoard = lazy(() => import('./GameBoard/GameBoard').then(module => ({default: module.default})))
@@ -41,7 +42,6 @@ const App = () => {
 
   const AlertDialogRef = useRef<any>();
   const GameBoardRef = useRef<any>();
-
   const [initialCircleColor, setinitialCircleColor] = useState([0, 0, 0])
   const [initialData, setInitialData] = useState<RespType>()
   const [tilesArray, settilesArray] = useState<any>()
@@ -50,22 +50,14 @@ const App = () => {
   const [closestColor, setclosestColor] = useState({ color: [0, 0, 0], diff: 0, tileAddress: [0, 0] })
  
   useEffect(() => {
-    initResp(initialData?.userId).then((value: any) => {
-      const data: any = value;     
-      createSquareTilesArray(data);
-    }).catch((err: any) => {
-    })
-
-
+    resetGame();
   }, [])
 
   const resetGame = () => {
     initResp(initialData?.userId).then((value: any) => {
       const data: any = value;
-      resetState(data);
-      setTimeout(() => {
+      if (initialData?.userId) {resetState(data) }; 
         createSquareTilesArray(data);
-      }, 10);
     }).catch((err: any) => {
     })
   }
@@ -77,19 +69,11 @@ const App = () => {
     setmaxMoves(initialState.maxMoves);
     settargetColor(initialState.targetColor);
     setclosestColor({ color: [0, 0, 0], diff: 0, tileAddress: [0, 0] });
-    AlertDialogRef.current?.updateshowAlertDialog();
+    AlertDialogRef.current?.updateshowAlertDialog(false);
   }
 
   const createSquareTilesArray = (data: any) => {
-    let arr = Array.from(Array(data.height), (val, index) => Array.from(Array(data.width), (k, v) => ({
-      color: [0, 0, 0],
-      topColor: [0, 0, 0],
-      rightColor: [0, 0, 0],
-      bottomColor: [0, 0, 0],
-      leftColor: [0, 0, 0],
-      diff: calcDiff([0, 0, 0], data.target),
-      tileAddress: [index, v]
-    })));
+    let arr = generateMatrix(data)
     settilesArray(arr)
     setInitialData(data)
     setmaxMoves(data.maxMoves)
@@ -137,7 +121,7 @@ const App = () => {
               initClosestColor={closestColor}
               initMaxMoves={maxMoves}
               targetColor={targetColor}
-              showAlertDialog={() => AlertDialogRef.current?.updateshowAlertDialog()}
+              showAlertDialog={() => AlertDialogRef.current?.updateshowAlertDialog(true)}
               updateClosestColor={(value: any) => upDateClosestColor(value)}
               upDateMaxMoves={(value: number) => setmaxMoves(value)}
             ></GameBoard>

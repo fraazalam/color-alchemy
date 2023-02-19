@@ -9,15 +9,14 @@ const AlertDialog = forwardRef(({ targetColor, closestColor, resetGame }: any, r
 
     // cosnt changeShowAlertDialog = () => 
 
-    const updateshowAlertDialog = () => {
-        setshowAlertDialog(!showAlertDialog);
+    const updateshowAlertDialog = (value: boolean) => {
+        setshowAlertDialog(value);
     }
 
-    useImperativeHandle(ref, () => {
-        return {
-            updateshowAlertDialog: updateshowAlertDialog
-        }
+    useImperativeHandle(ref, () => ({
+        updateshowAlertDialog(value: boolean) { updateshowAlertDialog(value)}
     })
+    )
 
   return (
       <Dialog
@@ -76,7 +75,7 @@ const AlertDialog = forwardRef(({ targetColor, closestColor, resetGame }: any, r
               {/* </DialogContentText> */}
           </DialogContent>
           <DialogActions>
-              <Button onClick={updateshowAlertDialog}>Disagree</Button>
+              <Button onClick={() => updateshowAlertDialog(false)}>Disagree</Button>
               <Button onClick={resetGame}>Agree</Button>
           </DialogActions>
       </Dialog>
