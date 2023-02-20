@@ -144,7 +144,7 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
                                       onClick={(e) => initialClicked(e, { start: 'top', index: y })}
                                       style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
                                   >
-                                      top {v} {y}
+                                     
                                   </span>
                               </Grid>
                           })}
@@ -164,7 +164,7 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
                                           onClick={(e) => initialClicked(e, { start: 'left', index: v })}
                                           style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
                                       >
-                                          {v} {y}
+                                         
                                       </span>
                                   }
                                   <Tooltip title={`${roundTo2decimal(z.color[0])} , ${roundTo2decimal((z.color)[1])} , ${roundTo2decimal(z.color[2])}`} placement="bottom-end">
@@ -175,7 +175,7 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
                                           onDragStart={(e) => dragStart(e, z.color)}
                                           style={{ background: `rgb(${z.color[0]},${z.color[1]},${z.color[2]})` }}
                                       >
-                                          {v} {y}
+                                          
                                       </span>
                                   </Tooltip>
                                   {y === k.length - 1 &&
@@ -188,7 +188,7 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
                                           onClick={(e) => initialClicked(e, { start: 'right', index: v })}
                                           style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
                                       >
-                                          {v} {y}
+                                          
                                       </span>
                                   }
                               </span>
@@ -208,7 +208,7 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
                                       onClick={(e) => initialClicked(e, { start: 'bottom', index: y })}
                                       style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
                                   >
-                                      bottom {v} {y}
+                                     
                                   </span>
                               </Grid>
                           })}
