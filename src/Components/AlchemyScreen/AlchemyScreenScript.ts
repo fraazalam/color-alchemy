@@ -16,7 +16,6 @@ export const generateMatrix = (data: any) => {
 export const resetState1 = async (
     data: any,
     initialState: any,
-    setinitialCircleColor: any,
     setInitialData: any,
     settilesArray: any,
     setmaxMoves: any,
@@ -25,7 +24,6 @@ export const resetState1 = async (
     AlertDialogRef: any,
     GameBoardRef: any,
     ) => {
-    setinitialCircleColor(initialState.initialCircleColor);
     setInitialData(data)
     settilesArray(initialState.tilesArray);
     setmaxMoves(data.maxMoves)

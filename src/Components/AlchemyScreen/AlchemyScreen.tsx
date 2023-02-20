@@ -39,7 +39,6 @@ const AlchemyScreen = () => {
 
     const AlertDialogRef = useRef<any>();
     const GameBoardRef = useRef<any>();
-    const [initialCircleColor, setinitialCircleColor] = useState([0, 0, 0])
     const [initialData, setInitialData] = useState<RespType>()
     const [tilesArray, settilesArray] = useState<any>()
     const [maxMoves, setmaxMoves] = useState(0)
@@ -59,7 +58,7 @@ const AlchemyScreen = () => {
     }
 
     const resetState = (data: any) => {
-        resetState1(data, initialState, setinitialCircleColor, setInitialData, settilesArray, setmaxMoves, settargetColor, setclosestColor, AlertDialogRef, GameBoardRef)
+        resetState1(data, initialState, setInitialData, settilesArray, setmaxMoves, settargetColor, setclosestColor, AlertDialogRef, GameBoardRef)
     }
 
 
@@ -92,7 +91,6 @@ const AlchemyScreen = () => {
                         <GameBoard
                             ref={GameBoardRef}
                             initTilesArray={tilesArray}
-                            initInitialCircleColor={initialCircleColor}
                             initClosestColor={closestColor}
                             initMaxMoves={maxMoves}
                             targetColor={targetColor}
