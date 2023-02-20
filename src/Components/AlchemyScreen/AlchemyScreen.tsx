@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { calcDiff } from '../../Utility/CalcColorDiff';
-import { generateMatrix } from '../GameBoard/GameBoardScript';
+import { generateMatrix } from './AlchemyScreenScript';
 const Details = lazy(() => import('../Details/Details').then((module) => ({ default: module.default })));
 const AlertDialog = lazy(() => import('../AlertDialog/AlertDialog').then((module) => ({ default: module.default })));
 const GameBoard = lazy(() => import('../GameBoard/GameBoard').then(module => ({ default: module.default })))
