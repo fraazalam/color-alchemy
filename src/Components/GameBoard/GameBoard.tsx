@@ -1,12 +1,12 @@
-import React, {useState, forwardRef, useImperativeHandle} from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { Grid, Tooltip } from '@mui/material';
 import { roundTo2decimal } from '../../Utility/RoundToDecimal';
 import { calcDiff } from '../../Utility/CalcColorDiff';
 import { renderColor } from './GameBoardScript';
 
 type propType = {
-    initTilesArray:any;
-    initInitialCircleColor:any;
+    initTilesArray: any;
+    initInitialCircleColor: any;
     initClosestColor: any;
     initMaxMoves: any;
     targetColor: any;
@@ -77,7 +77,7 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
             const value = renderColor(data, tilesArray, targetColor)
             settilesArray(value.arr.length > 0 ? value.arr : tilesArray)
             checkColorDiff(value.currentColorMixArray, value.arr)
-            const movesLeft = maxMoves - 1 ;
+            const movesLeft = maxMoves - 1;
             setmaxMoves(movesLeft)
             upDateMaxMoves(movesLeft)
             if (maxMoves - 1 < 1) {
@@ -97,13 +97,13 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
             setclosestColor(closestColorObject);
             updateClosestColor(closestColorObject)
         }
-        
+
         if (closestColorObject?.diff < 10) {
             showAlertDialog()
         }
     }
 
-   
+
 
     const dragStart = (e: any, draggedData?: any) => {
         setdragColor(draggedData)
@@ -127,97 +127,97 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
         return true;
     }
 
-  return (
-    <>
-          {tilesArray?.map((k: any, v: number) => {
-              return <span key={v}>
-                  {v === 0 &&
-                      <Grid key={'top_' + v} container justifyContent="center">
-                          {k?.map((z: any, y: number) => {
-                              return <Grid item key={'top_' + y}>
-                                  <span
-                                      key={'top_' + v + y}
-                                      className='circle'
-                                      onDragEnter={dragEnter}
-                                      onDrop={(e) => dragDrop(e, { start: 'top', index: y })}
-                                      onDragOver={dragOver}
-                                      onClick={(e) => initialClicked(e, { start: 'top', index: y })}
-                                      style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
-                                  >
-                                     
-                                  </span>
-                              </Grid>
-                          })}
-                      </Grid>
-                  }
-                  <Grid key={'center_' + v} container justifyContent="center">
-                      {k?.map((z: any, y: number) => {
-                          return <Grid item key={'center' + y}>
-                              <span key={y} className="display-flex">
-                                  {y === 0 &&
-                                      <span
-                                          key={'left_' + v + y}
-                                          className='circle'
-                                          onDragEnter={dragEnter}
-                                          onDrop={(e) => dragDrop(e, { start: 'left', index: v })}
-                                          onDragOver={dragOver}
-                                          onClick={(e) => initialClicked(e, { start: 'left', index: v })}
-                                          style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
-                                      >
-                                         
-                                      </span>
-                                  }
-                                  <Tooltip title={`${roundTo2decimal(z.color[0])} , ${roundTo2decimal((z.color)[1])} , ${roundTo2decimal(z.color[2])}`} placement="bottom-end">
-                                      <span key={v.toString() + y.toString()}
-                                          className={'square ' + ((closestColor?.tileAddress[0] === v && closestColor?.tileAddress[1] === y) ? 'red_border' : '')}
+    return (
+        <>
+            {tilesArray?.map((k: any, v: number) => {
+                return <span key={v}>
+                    {v === 0 &&
+                        <Grid key={'top_' + v} container justifyContent="center">
+                            {k?.map((z: any, y: number) => {
+                                return <Grid item key={'top_' + y}>
+                                    <span
+                                        key={'top_' + v + y}
+                                        className='circle'
+                                        onDragEnter={dragEnter}
+                                        onDrop={(e) => dragDrop(e, { start: 'top', index: y })}
+                                        onDragOver={dragOver}
+                                        onClick={(e) => initialClicked(e, { start: 'top', index: y })}
+                                        style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
+                                    >
 
-                                          draggable={maxMoves > 0}
-                                          onDragStart={(e) => dragStart(e, z.color)}
-                                          style={{ background: `rgb(${z.color[0]},${z.color[1]},${z.color[2]})` }}
-                                      >
-                                          
-                                      </span>
-                                  </Tooltip>
-                                  {y === k.length - 1 &&
-                                      <span
-                                          key={'right_' + v + y}
-                                          className='circle'
-                                          onDragEnter={dragEnter}
-                                          onDrop={(e) => dragDrop(e, { start: 'right', index: v })}
-                                          onDragOver={dragOver}
-                                          onClick={(e) => initialClicked(e, { start: 'right', index: v })}
-                                          style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
-                                      >
-                                          
-                                      </span>
-                                  }
-                              </span>
-                          </Grid>
-                      })}
-                  </Grid>
-                  {v === tilesArray?.length - 1 &&
-                      <Grid key={'bottom_' + v} container justifyContent="center">
-                          {k?.map((z: any, y: number) => {
-                              return <Grid item key={'bottom_' + y}>
-                                  <span
-                                      key={'bottom_' + v + y}
-                                      className='circle'
-                                      onDragEnter={dragEnter}
-                                      onDrop={(e) => dragDrop(e, { start: 'bottom', index: y })}
-                                      onDragOver={dragOver}
-                                      onClick={(e) => initialClicked(e, { start: 'bottom', index: y })}
-                                      style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
-                                  >
-                                     
-                                  </span>
-                              </Grid>
-                          })}
-                      </Grid>
-                  }
-              </span>
-          })}
-    </>
-  )
+                                    </span>
+                                </Grid>
+                            })}
+                        </Grid>
+                    }
+                    <Grid key={'center_' + v} container justifyContent="center">
+                        {k?.map((z: any, y: number) => {
+                            return <Grid item key={'center' + y}>
+                                <span key={y} className="display-flex">
+                                    {y === 0 &&
+                                        <span
+                                            key={'left_' + v + y}
+                                            className='circle'
+                                            onDragEnter={dragEnter}
+                                            onDrop={(e) => dragDrop(e, { start: 'left', index: v })}
+                                            onDragOver={dragOver}
+                                            onClick={(e) => initialClicked(e, { start: 'left', index: v })}
+                                            style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
+                                        >
+
+                                        </span>
+                                    }
+                                    <Tooltip title={`${roundTo2decimal(z.color[0])} , ${roundTo2decimal((z.color)[1])} , ${roundTo2decimal(z.color[2])}`} placement="bottom-end">
+                                        <span key={v.toString() + y.toString()}
+                                            className={'square ' + ((closestColor?.tileAddress[0] === v && closestColor?.tileAddress[1] === y) ? 'red_border' : '')}
+
+                                            draggable={maxMoves > 0}
+                                            onDragStart={(e) => dragStart(e, z.color)}
+                                            style={{ background: `rgb(${z.color[0]},${z.color[1]},${z.color[2]})` }}
+                                        >
+
+                                        </span>
+                                    </Tooltip>
+                                    {y === k.length - 1 &&
+                                        <span
+                                            key={'right_' + v + y}
+                                            className='circle'
+                                            onDragEnter={dragEnter}
+                                            onDrop={(e) => dragDrop(e, { start: 'right', index: v })}
+                                            onDragOver={dragOver}
+                                            onClick={(e) => initialClicked(e, { start: 'right', index: v })}
+                                            style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
+                                        >
+
+                                        </span>
+                                    }
+                                </span>
+                            </Grid>
+                        })}
+                    </Grid>
+                    {v === tilesArray?.length - 1 &&
+                        <Grid key={'bottom_' + v} container justifyContent="center">
+                            {k?.map((z: any, y: number) => {
+                                return <Grid item key={'bottom_' + y}>
+                                    <span
+                                        key={'bottom_' + v + y}
+                                        className='circle'
+                                        onDragEnter={dragEnter}
+                                        onDrop={(e) => dragDrop(e, { start: 'bottom', index: y })}
+                                        onDragOver={dragOver}
+                                        onClick={(e) => initialClicked(e, { start: 'bottom', index: y })}
+                                        style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
+                                    >
+
+                                    </span>
+                                </Grid>
+                            })}
+                        </Grid>
+                    }
+                </span>
+            })}
+        </>
+    )
 
 })
 export default GameBoard;
