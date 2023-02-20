@@ -5,8 +5,7 @@ import { initResp, RespType } from '../../services/api'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { calcDiff } from '../../Utility/CalcColorDiff';
-import { generateMatrix } from './AlchemyScreenScript';
+import { resetState1 } from './AlchemyScreenScript';
 const Details = lazy(() => import('../Details/Details').then((module) => ({ default: module.default })));
 const AlertDialog = lazy(() => import('../AlertDialog/AlertDialog').then((module) => ({ default: module.default })));
 const GameBoard = lazy(() => import('../GameBoard/GameBoard').then(module => ({ default: module.default })))
@@ -54,37 +53,16 @@ const AlchemyScreen = () => {
     const resetGame = () => {
         initResp(initialData?.userId).then((value: any) => {
             const data: any = value;
-            if (initialData?.userId) { resetState(data) };
-            createSquareTilesArray(data);
+            resetState(data);
         }).catch((err: any) => {
         })
     }
 
-    const resetState = async (data: any) => {
-        setinitialCircleColor(initialState.initialCircleColor);
-        setInitialData(initialState.initialData);
-        settilesArray(initialState.tilesArray);
-        setmaxMoves(initialState.maxMoves);
-        settargetColor(initialState.targetColor);
-        setclosestColor({ color: [0, 0, 0], diff: 0, tileAddress: [0, 0] });
-        AlertDialogRef.current?.updateshowAlertDialog(false);
+    const resetState = (data: any) => {
+        resetState1(data, initialState, setinitialCircleColor, setInitialData, settilesArray, setmaxMoves, settargetColor, setclosestColor, AlertDialogRef, GameBoardRef)
     }
 
-    const createSquareTilesArray = (data: any) => {
-        let arr = generateMatrix(data)
-        settilesArray(arr)
-        setInitialData(data)
-        setmaxMoves(data.maxMoves)
-        setinitialCircleColor([0, 0, 0])
-        settargetColor([...data.target])
-        const diff = calcDiff(data.target, [0, 0, 0])
-        setclosestColor({ color: [0, 0, 0], diff: diff, tileAddress: [0, 0] })
-        GameBoardRef.current?.reset({ arr: arr, closestColor: closestColor, initialCircleColor: [0, 0, 0], maxMoves: data.maxMoves })
-    }
 
-    const upDateClosestColor = (value: any) => {
-        setclosestColor(value);
-    }
     return (
         <Box sx={{ padding: 5 }}>
             <div>
@@ -119,8 +97,8 @@ const AlchemyScreen = () => {
                             initMaxMoves={maxMoves}
                             targetColor={targetColor}
                             showAlertDialog={() => AlertDialogRef.current?.updateshowAlertDialog(true)}
-                            updateClosestColor={(value: any) => upDateClosestColor(value)}
-                            upDateMaxMoves={(value: number) => setmaxMoves(value)}
+                            updateClosestColor={setclosestColor}
+                            upDateMaxMoves={setmaxMoves}
                         ></GameBoard>
                     </Suspense>
                 </CardContent>

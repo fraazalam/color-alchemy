@@ -4,6 +4,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, Typography, Grid, To
 import { roundTo2decimal } from '../../Utility/RoundToDecimal';
 import ChangeHistoryRoundedIcon from '@mui/icons-material/ChangeHistoryRounded';
 
+
 const AlertDialog = forwardRef(({ targetColor, closestColor, resetGame }: any, ref) => {
     const [showAlertDialog, setshowAlertDialog] = useState(false)
 
@@ -22,12 +23,9 @@ const AlertDialog = forwardRef(({ targetColor, closestColor, resetGame }: any, r
             open={showAlertDialog}
         >
             <DialogTitle>
-                {/* <Typography variant='h6' gutterBottom> */}
                 RGB Alchemy
-                {/* </Typography> */}
             </DialogTitle>
             <DialogContent>
-                {/* <DialogContentText> */}
                 <Typography variant='subtitle1' gutterBottom>
                     <Grid container alignItems="center">
                         <Grid item>
@@ -62,8 +60,8 @@ const AlertDialog = forwardRef(({ targetColor, closestColor, resetGame }: any, r
                             <ChangeHistoryRoundedIcon /> =
                         </Grid>
                         <Grid item>
-                            {/* {roundTo2decimal(targetDiffernce)}% */}
-                            {closestColor?.diff} %
+                            {roundTo2decimal(closestColor?.diff)}%
+                            {/* {closestColor?.diff} % */}
                         </Grid>
                     </Grid>
                 </Typography>

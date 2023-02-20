@@ -52,21 +52,17 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
             data['r'] = 255;
             data['g'] = 0;
             data['b'] = 0;
-            e.target.setAttribute('style', 'background: rgb(255,0,0)')
-            setinitialClick(initialClick + 1)
-            renderColorToRowColumn(data)
         } else if (initialClick === 1) {
             data['r'] = 0;
             data['g'] = 255;
             data['b'] = 0;
-            e.target.setAttribute('style', 'background: rgb(0,255,0)')
-            setinitialClick(initialClick + 1)
-            renderColorToRowColumn(data)
         } else if (initialClick === 2) {
             data['r'] = 0;
             data['g'] = 0;
             data['b'] = 255;
-            e.target.setAttribute('style', 'background: rgb(0,0,255)')
+        }
+        if(initialClick <= 2) {
+            e.target.setAttribute('style', `background: rgb(${data['r']},${data['g']},${data['b']})`)
             setinitialClick(initialClick + 1)
             renderColorToRowColumn(data)
         }
@@ -137,12 +133,12 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
                                 return <Grid item key={'top_' + y}>
                                     <span
                                         key={'top_' + v + y}
-                                        className='circle'
+                                        className={'circle ' + ((initialClick <= 2) && 'pointer')}
                                         onDragEnter={dragEnter}
                                         onDrop={(e) => dragDrop(e, { start: 'top', index: y })}
                                         onDragOver={dragOver}
-                                        onClick={(e) => initialClicked(e, { start: 'top', index: y })}
-                                        style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
+                                        onClick={(e) => (initialClick <= 2) && initialClicked(e, { start: 'top', index: y })}
+                                        style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})`}}
                                     >
 
                                     </span>
@@ -157,11 +153,11 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
                                     {y === 0 &&
                                         <span
                                             key={'left_' + v + y}
-                                            className='circle'
+                                            className={'circle ' + ((initialClick <= 2) && 'pointer')}
                                             onDragEnter={dragEnter}
                                             onDrop={(e) => dragDrop(e, { start: 'left', index: v })}
                                             onDragOver={dragOver}
-                                            onClick={(e) => initialClicked(e, { start: 'left', index: v })}
+                                            onClick={(e) => (initialClick <= 2) && initialClicked(e, { start: 'left', index: v })}
                                             style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
                                         >
 
@@ -169,8 +165,7 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
                                     }
                                     <Tooltip disableInteractive title={`${roundTo2decimal(z.color[0])} , ${roundTo2decimal((z.color)[1])} , ${roundTo2decimal(z.color[2])}`} placement="bottom-end">
                                         <span key={v.toString() + y.toString()}
-                                            className={'square ' + ((closestColor?.tileAddress[0] === v && closestColor?.tileAddress[1] === y) ? 'red_border' : '')}
-
+                                            className={'square pointer ' + ((closestColor?.tileAddress[0] === v && closestColor?.tileAddress[1] === y) ? 'red_border' : '')}
                                             draggable={maxMoves > 0}
                                             onDragStart={(e) => dragStart(e, z.color)}
                                             style={{ background: `rgb(${z.color[0]},${z.color[1]},${z.color[2]})` }}
@@ -181,11 +176,11 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
                                     {y === k.length - 1 &&
                                         <span
                                             key={'right_' + v + y}
-                                            className='circle'
+                                            className={'circle ' + ((initialClick <= 2) && 'pointer')}
                                             onDragEnter={dragEnter}
                                             onDrop={(e) => dragDrop(e, { start: 'right', index: v })}
                                             onDragOver={dragOver}
-                                            onClick={(e) => initialClicked(e, { start: 'right', index: v })}
+                                            onClick={(e) => (initialClick <= 2) && initialClicked(e, { start: 'right', index: v })}
                                             style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
                                         >
 
@@ -201,11 +196,11 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
                                 return <Grid item key={'bottom_' + y}>
                                     <span
                                         key={'bottom_' + v + y}
-                                        className='circle'
+                                        className={'circle ' + ((initialClick <= 2) && 'pointer')}
                                         onDragEnter={dragEnter}
                                         onDrop={(e) => dragDrop(e, { start: 'bottom', index: y })}
                                         onDragOver={dragOver}
-                                        onClick={(e) => initialClicked(e, { start: 'bottom', index: y })}
+                                        onClick={(e) => (initialClick <= 2)  && initialClicked(e, { start: 'bottom', index: y })}
                                         style={{ background: `rgb(${initialCircleColor[0]},${initialCircleColor[1]},${initialCircleColor[2]})` }}
                                     >
 

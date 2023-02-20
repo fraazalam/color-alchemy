@@ -32,7 +32,7 @@ const Details = ({ userId, maxMoves, targetColor, closestColor }: prototype) => 
                                 Target Color:
                             </Grid>
                             <Grid item>
-                                <Tooltip title={`${roundTo2decimal(targetColor[0])} , ${roundTo2decimal(targetColor[1])} , ${roundTo2decimal(targetColor[2])}`} placement="bottom-end">
+                                <Tooltip disableInteractive title={`${roundTo2decimal(targetColor[0])} , ${roundTo2decimal(targetColor[1])} , ${roundTo2decimal(targetColor[2])}`} placement="bottom-end">
                                     <span
                                         className='square'
                                         style={{ background: `rgb(${targetColor[0]},${targetColor[1]},${targetColor[2]})` }}
