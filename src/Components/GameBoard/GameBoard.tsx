@@ -167,7 +167,7 @@ const GameBoard = forwardRef(({ initTilesArray, initInitialCircleColor, initClos
 
                                         </span>
                                     }
-                                    <Tooltip title={`${roundTo2decimal(z.color[0])} , ${roundTo2decimal((z.color)[1])} , ${roundTo2decimal(z.color[2])}`} placement="bottom-end">
+                                    <Tooltip disableInteractive title={`${roundTo2decimal(z.color[0])} , ${roundTo2decimal((z.color)[1])} , ${roundTo2decimal(z.color[2])}`} placement="bottom-end">
                                         <span key={v.toString() + y.toString()}
                                             className={'square ' + ((closestColor?.tileAddress[0] === v && closestColor?.tileAddress[1] === y) ? 'red_border' : '')}
 
